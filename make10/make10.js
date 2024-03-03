@@ -78,7 +78,7 @@ function calculateRPN(input) {
   return stack.pop();
 }
 function convertRPNToInfix(rpn) {
-  const tokens = rpn.split(/\s+/);
+  const tokens = rpn;
   const stack = [];
 
   const precedence = {
