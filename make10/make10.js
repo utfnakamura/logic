@@ -120,16 +120,21 @@ function nonNumeric(arr) {
 }
 
 function areEquivalentRPNForAddOrMultiply(exprA, exprB) {
-    // 演算子が * or +
+    // 配列として完全に等価なら当然等価
+    if( exprA.toString() === exprB.toString() ) {
+	return true;
+    }
+
+    // 演算子が * or + のみなら、数字はすべて共通だから等価
     isAsta = ['*'].toString();
     isPlus = ['+'].toString();
     uA = [...new Set(nonNumeric(exprA))].toString();
     uB = [...new Set(nonNumeric(exprB))].toString();
 
-    // この場合、無条件で等価な式
     if( (uA===isPlus && uB===isPlus) || (uA===isAsta && uB===isAsta) ) {
 	return true;
     }
+
     return false;
 }
 
