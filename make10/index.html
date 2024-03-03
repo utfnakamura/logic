@@ -9,25 +9,29 @@
 	 }
 	</script>
 	<script>
-	 function autoResize(textarea) {
-	     // テキストエリアの高さを一旦最小に設定してから、スクロール高さに合わせて調整
-	     textarea.style.height = 'auto'; // 高さを自動に設定して内容がすべて表示される高さに初期化
-	     textarea.style.height = textarea.scrollHeight + 'px'; // スクロール高さを高さとして設定
-	 }
-	</script>
-	<script>
 	 function jfunc() {
              var v = document.getElementById('digit4').value;
 	     var t = document.getElementById('target').value;
 	     if( /^[0-9]{4}$/.test(v) ) {
-		 r = m(+v[0],+v[1],+v[2],+v[3],+t)
+		 r = m(+v[0],+v[1],+v[2],+v[3],+t);
 		 var tx = document.getElementById("result");
-		 var s = ""
+		 var fms=[];
+		 var oks = [];
 		 r.forEach((rpn) => {
-		     var infix = convertRPNToInfix(rpn);
-		     s += `${infix}\n`
+		     var eqv = false;
+		     oks.forEach((ok) => {
+			 var hantei=areEquivalentRPNForAddOrMultiply(rpn,ok);
+			 if(hantei) {
+			     eqv = true;
+			 }
+		     });
+		     if(!eqv) {
+			 var infix = convertRPNToInfix(rpn);
+			 fms.push(infix)
+			 oks.push(rpn);
+		     }
 		 });
-		 tx.value = s;
+		 tx.value = fms.join('\n');
 		 autoResize(tx);
 	     }
 	 }

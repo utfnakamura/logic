@@ -114,3 +114,23 @@ function convertRPNToInfix(rpn) {
 
   return stack.pop().value;
 }
+
+function nonNumeric(arr) {
+   return arr.filter(element => isNaN(element))
+}
+
+function areEquivalentRPNForAddOrMultiply(exprA, exprB) {
+    // 演算子が * or +
+    isAsta = ['*'].toString();
+    isPlus = ['+'].toString();
+    uA = [...new Set(nonNumeric(exprA))].toString();
+    uB = [...new Set(nonNumeric(exprB))].toString();
+
+    // この場合、無条件で等価な式
+    if( (uA===isPlus && uB===isPlus) || (uA===isAsta && uB===isAsta) ) {
+	return true;
+    }
+    return false;
+}
+
+
