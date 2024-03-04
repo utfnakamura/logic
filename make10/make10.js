@@ -115,8 +115,24 @@ function convertRPNToInfix(rpn) {
   return stack.pop().value;
 }
 
-function nonNumeric(arr) {
-   return arr.filter(element => isNaN(element))
+function getOperators(arr) {
+    return arr.filter(element =>
+	['+','-','*','/'].includes(element)
+    )
+}
+
+function check34and56(a,b) {
+    // 0 1 2 3 4 5 6
+    // a b X c Y d Z
+    return (
+	(
+	    ( a[3]==b[3] && a[4]==b[4] && a[5]==b[5] && a[6]==b[6] ) ||
+	    ( a[3]==b[5] && a[4]==b[6] && a[5]==b[3] && a[6]==b[4] )
+	) &&
+	(
+	    ( ['+','-'].includes(a[4]) && ['+','-'].includes(a[6]) )
+	)
+    )
 }
 
 function areEquivalentRPNForAddOrMultiply(exprA, exprB) {
@@ -125,11 +141,16 @@ function areEquivalentRPNForAddOrMultiply(exprA, exprB) {
 	return true;
     }
 
+    // 後方の2項が+/-で等しい場合(入替含む)
+    if( check34and56(exprA,exprB) ) {
+	return true;
+    }
+
     // 演算子が * or + のみなら、数字はすべて共通だから等価
     isAsta = ['*'].toString();
     isPlus = ['+'].toString();
-    uA = [...new Set(nonNumeric(exprA))].toString();
-    uB = [...new Set(nonNumeric(exprB))].toString();
+    uA = [...new Set(getOperators(exprA))].toString();
+    uB = [...new Set(getOperators(exprB))].toString();
 
     if( (uA===isPlus && uB===isPlus) || (uA===isAsta && uB===isAsta) ) {
 	return true;
@@ -137,5 +158,4 @@ function areEquivalentRPNForAddOrMultiply(exprA, exprB) {
 
     return false;
 }
-
 
