@@ -156,6 +156,8 @@ function areEquivalentRPNForAddOrMultiply(exprA, exprB) {
 	return true;
     }
 
+    // 0 1 2 3 4 5 6  2,4,6が+/-、かつ12,34,56がもう一方に順不同であるなら等価
+    
     return false;
 }
 

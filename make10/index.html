@@ -1,6 +1,12 @@
-<html>
+<html lang="en">
     <head>
-	<script src="make10.js"></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+	<title> Let's make 10! </title>
 	<script>
 	 function autoResize(textarea) {
 	     // テキストエリアの高さを一旦最小に設定してから、スクロール高さに合わせて調整
@@ -45,14 +51,30 @@
 	</style>
     </head>
     <body>
-	<div>
-	    <input type="text" id="digit4" oninput="jfunc()" size="8">
-	    <input type="text" id="target" oninput="jfunc()" value="10" size="3">
+	<div class="container">
+	    <div class="row justify-content-center">
+		<div class="col-md-6">
+		    <h5> Make 10 </h5>
+		    <form>
+			<div class="mb-3">
+			    <label for="fourDigits" class="form-label">4 numbers</label>
+			    <input type="text" class="form-control" oninput="jfunc()" id="digit4" placeholder="1234" pattern="\d{4}" required>
+			</div>
+			<div class="mb-3">
+			    <label for="twoDigits" class="form-label">target</label>
+			    <input type="text" class="form-control" oninput="jfunc()" id="target" placeholder="12" pattern="\d{2}" value="10">
+			</div>
+			<div class="mb-3">
+			    <label for="equation" class="form-label">formula</label>
+			    <textarea class="form-control" id="result" rows="3" placeholder="a + b + c + d = 10"></textarea>
+			</div>
+		    </form>
+		</div>
+	    </div>
 	</div>
-	<div>
-	    <textarea id="result" oninput="autoResize(this)">
-
-	    </textarea>
-	</div>
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<!-- Make 10 JS -->
+	<script src="make10.js"></script>
     </body>
 </html>
